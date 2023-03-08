@@ -40,8 +40,6 @@ class ApiController extends Controller
         $client = Client::find($clientId);
         $company = $client->company;
 
-        Log::info([$company]);
-
         return response([
             'company' => $company
         ]);
