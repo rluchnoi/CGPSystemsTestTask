@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resources([
+    'companies' => CompanyController::class,
+    'clients'   => ClientController::class,
+]);
+
+Route::post('/tokens/create', [UserController::class, 'issueANewToken'])->name('tokens.create');
+Route::get('/tokens/get', [UserController::class, 'getToken'])->name('tokens.get');
+
+Auth::routes();
