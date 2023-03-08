@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    // to use the pagination specify 'page' parameter in yout request
+    Route::get('/clients/{companyId}', [ApiController::class, 'getClients']);
+
+    Route::get('/companies', [ApiController::class, 'getCompanies']);
+
+    Route::get('clientCompany/{clientId}', [ApiController::class, 'getClientCompany']);
 });
